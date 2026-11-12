@@ -27,7 +27,7 @@ img { display: block; max-width: 100%; }
 /* Language switching */
 html[data-lang="en"] .t-th,
 html[data-lang="th"] .t-en { display: none !important; }
-html[data-lang="th"] body { font-family: "Sarabun", var(--sans); }
+html[data-lang="th"] body { font-family: "Sarabun", var(--sans); font-size: 15.5px; line-height: 1.85; }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
 
@@ -38,12 +38,14 @@ html[data-lang="th"] body { font-family: "Sarabun", var(--sans); }
   letter-spacing: 2.6px; text-transform: uppercase; color: var(--navy);
 }
 .kicker::before { content: ""; width: 32px; height: 1px; background: currentColor; flex: none; }
-html[data-lang="th"] .kicker { letter-spacing: 0.5px; font-size: 14px; }
+html[data-lang="th"] .kicker { letter-spacing: 0.5px; font-size: 12.5px; }
 .kicker-light { color: rgba(255, 255, 255, 0.82); }
 
 h1, h2, h3 { font-family: var(--serif); font-weight: 500; color: var(--navy); margin: 0; }
 h2 { font-size: clamp(32px, 3.8vw, 46px); line-height: 1.15; letter-spacing: -0.3px; }
-html[data-lang="th"] h1, html[data-lang="th"] h2 { line-height: 1.4; letter-spacing: 0; font-weight: 600; }
+html[data-lang="th"] h1, html[data-lang="th"] h2 { line-height: 1.45; letter-spacing: 0; font-weight: 500; }
+html[data-lang="th"] h2 { font-size: clamp(26px, 3vw, 36px); }
+html[data-lang="th"] .hero h1 { font-size: clamp(32px, min(4.8vw, 7vh), 62px); line-height: 1.35; }
 
 /* Buttons */
 .btn {
@@ -53,7 +55,7 @@ html[data-lang="th"] h1, html[data-lang="th"] h2 { line-height: 1.4; letter-spac
   border: 1px solid transparent; border-radius: 0;
   transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
 }
-html[data-lang="th"] .btn { letter-spacing: 0.3px; font-size: 15px; }
+html[data-lang="th"] .btn { letter-spacing: 0.3px; font-size: 13.5px; }
 .btn-sm { padding: 9px 18px; }
 .btn-navy { background: var(--navy); color: var(--paper); }
 .btn-navy:hover { background: var(--navy-deep); }
@@ -70,7 +72,7 @@ html[data-lang="th"] .btn { letter-spacing: 0.3px; font-size: 15px; }
   letter-spacing: 1.5px; text-transform: uppercase; padding-bottom: 4px;
   border-bottom: 1px solid var(--navy);
 }
-html[data-lang="th"] .text-link { letter-spacing: 0; font-size: 15px; }
+html[data-lang="th"] .text-link { letter-spacing: 0; font-size: 13.5px; }
 .text-link:hover { color: var(--navy-deep); }
 
 /* Photos */
@@ -99,7 +101,7 @@ html[data-lang="th"] .text-link { letter-spacing: 0; font-size: 15px; }
   color: var(--text); text-decoration: none; font-size: 12.5px; font-weight: 500;
   letter-spacing: 1.8px; text-transform: uppercase; padding: 6px 0; position: relative;
 }
-html[data-lang="th"] .nav a { letter-spacing: 0; font-size: 15px; }
+html[data-lang="th"] .nav a { letter-spacing: 0; font-size: 14px; }
 .nav a::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
   background: var(--navy); transform: scaleX(0); transform-origin: left; transition: transform 0.35s var(--ease);
@@ -117,17 +119,29 @@ html[data-lang="th"] .nav a { letter-spacing: 0; font-size: 15px; }
 .lang-switch button:focus-visible { outline: 2px solid var(--sky); outline-offset: 2px; }
 
 /* ================= Hero ================= */
-.hero { position: relative; color: var(--paper); background: var(--navy-ink); overflow: hidden; }
+/* The banner fills exactly the first screen below the header, so the info strip is never cut off.
+   --top-h is the announcement bar + header height, measured by a small script in index.html. */
+.hero {
+  position: relative; color: var(--paper); background: var(--navy-ink); overflow: hidden;
+  display: flex; flex-direction: column;
+  min-height: calc(100vh - var(--top-h, 104px));
+  min-height: calc(100svh - var(--top-h, 104px));
+}
 .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(90deg, rgba(14, 35, 64, 0.92) 0%, rgba(14, 35, 64, 0.72) 45%, rgba(14, 35, 64, 0.25) 100%);
 }
-.hero-content { position: relative; z-index: 2; padding-top: 130px; padding-bottom: 130px; }
-.hero h1 {
-  color: var(--paper); font-size: clamp(46px, 6.4vw, 84px); line-height: 1.04; letter-spacing: -0.8px; max-width: 760px;
+.hero-content {
+  position: relative; z-index: 2; width: 100%; flex: 1;
+  display: flex; flex-direction: column; justify-content: center;
+  padding-top: clamp(36px, 7vh, 110px); padding-bottom: clamp(36px, 7vh, 110px);
 }
-.hero-sub { max-width: 520px; margin: 26px 0 38px; font-size: 18px; color: rgba(255, 255, 255, 0.82); }
+.hero-content > * { flex: none; }
+.hero h1 {
+  color: var(--paper); font-size: clamp(40px, min(6.4vw, 9vh), 84px); line-height: 1.04; letter-spacing: -0.8px; max-width: 760px;
+}
+.hero-sub { max-width: 520px; margin: clamp(14px, 3vh, 26px) 0 clamp(20px, 4.5vh, 38px); font-size: 18px; color: rgba(255, 255, 255, 0.82); }
 .hero-content > * { animation: rise 0.9s var(--ease) both; }
 .hero-content > *:nth-child(2) { animation-delay: 0.08s; }
 .hero-content > *:nth-child(3) { animation-delay: 0.16s; }
@@ -142,9 +156,11 @@ html[data-lang="th"] .nav a { letter-spacing: 0; font-size: 15px; }
 .strip-grid > div { padding: 22px 0 22px 28px; border-left: 1px solid rgba(255, 255, 255, 0.18); display: flex; flex-direction: column; gap: 2px; }
 .strip-grid > div:first-child { padding-left: 0; border-left: 0; }
 .strip-label { font-size: 11px; letter-spacing: 2.2px; text-transform: uppercase; color: var(--sky); }
-html[data-lang="th"] .strip-label { letter-spacing: 0.5px; font-size: 13px; }
+html[data-lang="th"] .strip-label { letter-spacing: 0.5px; font-size: 12px; }
+html[data-lang="th"] .strip-value { font-size: 15px; }
 .strip-value { font-size: 16px; color: var(--paper); text-decoration: none; }
 a.strip-value:hover { text-decoration: underline; }
+.nowrap { white-space: nowrap; }
 
 /* ================= Sections ================= */
 .section { padding: 120px 0; }
@@ -162,14 +178,14 @@ a.strip-value:hover { text-decoration: underline; }
 .offer .img-frame { aspect-ratio: 4 / 5; }
 .offer-no { margin: 22px 0 6px; font-family: var(--serif); font-size: 16px; color: var(--muted); padding-bottom: 12px; border-bottom: 1px solid var(--line); }
 .offer h3 { font-size: 28px; margin: 14px 0 8px; }
-html[data-lang="th"] .offer h3 { font-weight: 600; font-size: 25px; }
+html[data-lang="th"] .offer h3 { font-weight: 500; font-size: 21px; }
 .offer p:last-child { margin: 0; color: var(--muted); font-size: 15.5px; }
 
 /* Feature: lace */
-.feature { display: grid; grid-template-columns: 1fr 1fr; min-height: 640px; background: var(--stone); }
+.feature { display: grid; grid-template-columns: 1fr 1fr; min-height: min(640px, calc(100svh - 70px)); background: var(--stone); }
 .feature-media { position: relative; overflow: hidden; }
 .feature-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.feature-copy { padding: 110px 9% 110px 8%; align-self: center; }
+.feature-copy { padding: clamp(56px, 10vh, 110px) 9% clamp(56px, 10vh, 110px) 8%; align-self: center; }
 .feature-lead { margin: 20px 0 30px; color: var(--muted); font-size: 17px; max-width: 460px; }
 .spec-list { list-style: none; padding: 0; margin: 0 0 36px; max-width: 460px; border-top: 1px solid var(--line); }
 .spec-list li {
@@ -202,7 +218,7 @@ html[data-lang="th"] .offer h3 { font-weight: 600; font-size: 25px; }
 .info { margin: 36px 0 36px; border-top: 1px solid var(--line); }
 .info > div { display: grid; grid-template-columns: 130px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
 .info dt { font-size: 11.5px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--navy); padding-top: 3px; }
-html[data-lang="th"] .info dt { letter-spacing: 0; font-size: 14.5px; }
+html[data-lang="th"] .info dt { letter-spacing: 0; font-size: 13px; }
 .info dd { margin: 0; color: var(--text); }
 .info a { color: var(--navy); text-decoration: none; border-bottom: 1px solid var(--line); }
 .info a:hover { border-color: var(--navy); }
@@ -218,11 +234,20 @@ html[data-lang="th"] .info dt { letter-spacing: 0; font-size: 14.5px; }
 .footer-brand span { display: block; }
 .footer-tag { margin-top: 10px; font-size: 13.5px; }
 .site-footer h4 { margin: 4px 0 14px; font-size: 11.5px; font-weight: 500; letter-spacing: 2.2px; text-transform: uppercase; color: var(--sky); }
-html[data-lang="th"] .site-footer h4 { letter-spacing: 0; font-size: 14px; }
+html[data-lang="th"] .site-footer h4 { letter-spacing: 0; font-size: 12.5px; }
 .site-footer p { margin: 0; line-height: 1.8; }
 .site-footer a { color: var(--paper); text-decoration: none; }
 .site-footer a:hover { text-decoration: underline; }
 .copyright { padding-top: 22px; padding-bottom: 26px; border-top: 1px solid rgba(255, 255, 255, 0.12); font-size: 12.5px; }
+
+/* Thai: Thai glyphs read larger than Latin at the same size, so scale body copy down */
+html[data-lang="th"] .hero-sub,
+html[data-lang="th"] .about-body p,
+html[data-lang="th"] .feature-lead { font-size: 16px; }
+html[data-lang="th"] .offer p:last-child,
+html[data-lang="th"] .spec-list li,
+html[data-lang="th"] .findus-block p:not(.kicker) { font-size: 14.5px; }
+html[data-lang="th"] .announce { font-size: 12px; letter-spacing: 0.3px; }
 
 /* Motion */
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
@@ -254,7 +279,17 @@ html[data-lang="th"] .site-footer h4 { letter-spacing: 0; font-size: 14px; }
 @media (max-width: 640px) {
   .container { padding: 0 20px; }
   .header-right .btn { display: none; }
-  .hero-content { padding-top: 84px; padding-bottom: 84px; }
+  /* Phone: the strip already shows hours and location, so drop the duplicate top bar
+     and compact the banner so everything fits on the first screen */
+  .announce { display: none; }
+  .hero-content { padding-top: 32px; padding-bottom: 32px; }
+  .hero-sub { font-size: 16px; }
+  .hero .btn { padding: 12px 16px; letter-spacing: 1.2px; }
+  .strip-grid > div {
+    display: grid; grid-template-columns: 116px 1fr; align-items: baseline; gap: 10px; padding: 10px 0;
+  }
+  .strip-label { letter-spacing: 1.2px; white-space: nowrap; }
+  .strip-value { font-size: 14.5px; }
   .strip-grid { grid-template-columns: 1fr; }
   .strip-grid > div { padding: 14px 0; border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.14); }
   .strip-grid > div:first-child { border-top: 0; }

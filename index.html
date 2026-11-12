@@ -83,7 +83,7 @@
         <div class="container strip-grid">
           <div>
             <span class="strip-label"><span class="t-en">Location</span><span class="t-th">ที่ตั้ง</span></span>
-            <span class="strip-value"><span class="t-en">3rd Floor, China World · Booth C28-29</span><span class="t-th">ชั้น 3 ไชน่าเวิลด์ · ล็อก C28-29</span></span>
+            <span class="strip-value"><span class="t-en">3rd Floor, China World · <span class="nowrap">Booth C28-29</span></span><span class="t-th">ชั้น 3 ไชน่าเวิลด์ · <span class="nowrap">ล็อก C28-29</span></span></span>
           </div>
           <div>
             <span class="strip-label"><span class="t-en">Opening hours</span><span class="t-th">เวลาทำการ</span></span>
@@ -135,7 +135,7 @@
             <p><span class="t-en">Our specialty — a wide range of patterns, colours and widths for dresses, bridal wear and crafts.</span><span class="t-th">สินค้าเด่นของร้าน มีหลายลาย หลายสี หลายหน้ากว้าง สำหรับชุดเดรส ชุดเจ้าสาว และงานฝีมือ</span></p>
           </article>
           <article class="offer reveal">
-            <div class="img-frame"><img src="https://images.unsplash.com/photo-1771098403201-8d0d32e2a062?w=900&q=80&auto=format&fit=crop" alt="Rolls of fabric on shelves" loading="lazy"></div>
+            <div class="img-frame"><img src="images/fabric-sequin-pink.jpg" alt="Pink sequin tulle fabric from TSD Textile" width="1170" height="1400" loading="lazy"></div>
             <p class="offer-no">02</p>
             <h3><span class="t-en">All kinds of fabrics</span><span class="t-th">ผ้านานาชนิด</span></h3>
             <p><span class="t-en">A broad selection of materials for clothing, craft and decoration, with new stock arriving often.</span><span class="t-th">ผ้าหลากหลายประเภทสำหรับตัดเย็บเสื้อผ้า งานฝีมือ และงานตกแต่ง มีสินค้าใหม่เข้าร้านอยู่เสมอ</span></p>
@@ -297,6 +297,16 @@
       setLang(root.getAttribute('data-lang') || 'en');
 
       document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Measure the announcement bar + header so the banner fits the first screen exactly.
+      function setTopHeight() {
+        var header = document.querySelector('.site-header');
+        var top = header.offsetTop + header.offsetHeight;
+        root.style.setProperty('--top-h', top + 'px');
+      }
+      setTopHeight();
+      window.addEventListener('resize', setTopHeight);
+      buttons.forEach(function (b) { b.addEventListener('click', setTopHeight); });
 
       var items = document.querySelectorAll('.reveal');
       if ('IntersectionObserver' in window) {
